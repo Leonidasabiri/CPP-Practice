@@ -57,9 +57,19 @@ public:
 			h = h->next;
 		}
 	}
-	void remove(int data);
+	void reverse()
+	{
+		Singly_Node<T>* curr = h, * prev = nullptr, * next = nullptr;
+		while (curr != nullptr)
+		{
+			next = curr->next;
+			curr->next = prev;
+			prev = curr;
+			curr = next;
+		}
+		h = prev;
+	}
 	void merge(Singly_Node* n2);
-	void reverse();
 	void sort();
 
 	~Singly_Node()
@@ -114,6 +124,6 @@ int main()
 	n.pushback(2);
 	n.pushback(3);
 	n.pushback(4);
-	n.deleteAt(2);
+	n.reverse();
 	n.printList();
 }
