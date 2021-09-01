@@ -69,9 +69,38 @@ public:
 		}
 		h = prev;
 	}
-	void merge(Singly_Node* n2);
-	void sort();
-
+	void merge(Singly_Node* n2)
+	{
+		Singly_Node* curr1 = h, * curr2 = n2;
+		while (curr1->next != nullptr)
+			curr1 = curr1->next;
+		while (curr2->next != nullptr)
+		{
+			curr1 = curr2;
+			curr1 = curr1->next;
+			curr2 = curr2->next;
+		}
+	}
+	void sort()
+	{
+		T tmp;
+		Singly_Node* curr = h, * curr1 = curr;
+		while (curr != nullptr)
+		{
+			curr1 = curr;
+			while (curr1 != nullptr)
+			{
+				if (curr->data > curr1->data)
+				{
+					tmp = curr->data;
+					curr->data = curr1->data;
+					curr1->data = tmp;
+				}
+				curr1 = curr1->next;
+			}
+			curr = curr->next;
+		}
+	}
 	~Singly_Node()
 	{
 		Singly_Node<T>* curr = h, * next = nullptr;
@@ -118,12 +147,16 @@ class Queue
 
 int main()
 {
-	Singly_Node<int> n;
+	Singly_Node<int> n, n2;
+	//n2.pushback(4);
+	n.pushback(6);
+	n.pushback(2);
 	n.pushback(0);
 	n.pushback(1);
-	n.pushback(2);
-	n.pushback(3);
 	n.pushback(4);
-	n.reverse();
+	//n2.pushback(3);
+	//n2.pushback(5);
+	n.sort();
+	//	n.merge(&n2);
 	n.printList();
 }
