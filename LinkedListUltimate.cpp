@@ -74,12 +74,7 @@ public:
 		Singly_Node* curr1 = h, * curr2 = n2;
 		while (curr1->next != nullptr)
 			curr1 = curr1->next;
-		while (curr2->next != nullptr)
-		{
-			curr1 = curr2;
-			curr1 = curr1->next;
-			curr2 = curr2->next;
-		}
+		curr1->next = curr2;
 	}
 	void sort()
 	{
@@ -115,13 +110,70 @@ public:
 };
 
 //Doubly linked-list node
-template<typename T, typename U>
+template<typename T>
 class Doubly_Node
 {
+public:
+	T data;
 	Doubly_Node* next;
-	Doubly_Node* prev;
-
+	Doubly_Node* prev = nullptr;
 	Doubly_Node* h = nullptr;
+
+	Doubly_Node* last = h;
+
+	void pushfront(T d)
+	{
+		Doubly_Node<T>* newnode = new Doubly_Node<T>();
+
+		newnode->data = d;
+		newnode->next = h;
+		newnode->prev = nullptr;
+
+		if (h != nullptr)
+			h->prev = newnode;
+		h = newnode;
+	}
+	void pushback(T d)
+	{
+		Doubly_Node<T>* newnode = new Doubly_Node<T>, * tmp;
+		if (h == nullptr)										//In case if the head is a null pointer make it the new allocated node
+		{
+			newnode->data = d;
+			newnode->next = h;
+			newnode->prev = nullptr;
+			h = newnode;
+			return;
+		}
+		tmp = h;												// Otherwise make another tmp pointer to traverse the list
+		while (tmp->next != nullptr)
+			tmp = tmp->next;
+		newnode->data = d;
+		tmp->next = newnode;									//Tmp pointer points to the new node
+		newnode->prev = tmp;									//New node points to tmp as its previous element
+	}
+	void printForward()
+	{
+		Doubly_Node* tmp = h;
+		while (tmp != nullptr)
+		{
+			std::cout << tmp->data;
+			tmp = tmp->next;
+		}
+	}
+	void printInverse()
+	{
+		Doubly_Node* tmp = h;
+		while (tmp != nullptr)
+		{
+			last = tmp;
+			tmp = tmp->next;
+		}
+		while (last != nullptr)
+		{
+			std::cout << last->data;
+			last = last->prev;
+		}
+	}
 };
 
 template<typename ...Arg>
@@ -148,15 +200,27 @@ class Queue
 int main()
 {
 	Singly_Node<int> n, n2;
-	//n2.pushback(4);
-	n.pushback(6);
-	n.pushback(2);
-	n.pushback(0);
+	Doubly_Node<float> d;
+
+	std::cout << "Singly List\n\n";
 	n.pushback(1);
-	n.pushback(4);
-	//n2.pushback(3);
-	//n2.pushback(5);
-	n.sort();
-	//	n.merge(&n2);
+	n.pushback(2);
+	n.pushback(3);
+	n.pushfront(4);
+	n.pushfront(5);
+	n.pushfront(6);
+	n.pushfront(7);
 	n.printList();
+
+	std::cout << "\n\n";
+	std::cout << "Doubly List\n\n";
+	d.pushback(3.4f);
+	d.pushback(2.4f);
+	d.pushback(1.4f);
+	d.pushback(6.4f);
+	d.pushfront(7.3f);
+	d.pushfront(6.3f);
+	d.printForward();
+	std::cout << "\n";
+	d.printInverse();
 }
