@@ -176,26 +176,26 @@ public:
 	}
 };
 
-template<typename ...Arg>
-class Stack
-{
-	Stack* top = nullptr;
-	// LIFO
-	/*Stack(Arg&& args...)
-	{
+// template<typename ...Arg>
+// class Stack
+// {
+// 	Stack* top = nullptr;
+// 	// LIFO
+// 	/*Stack(Arg&& args...)
+// 	{
 
-	}*/
-};
+// 	}*/
+// };
 
-template<typename ...Arg>
-class Queue
-{
-	// FIFO
-	/*Queue(Arg&& args...)
-	{
+// template<typename ...Arg>
+// class Queue
+// {
+// 	// FIFO
+// 	/*Queue(Arg&& args...)
+// 	{
 
-	}*/
-};
+// 	}*/
+// };
 
 int main()
 {
